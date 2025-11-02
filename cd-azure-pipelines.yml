@@ -111,14 +111,14 @@ steps:
 - script: |
     echo "install NGINX ingress controller"
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.1/deploy/static/provider/cloud/deploy.yaml
+    
+    echo -e "\ninstall application ingress"
+    kubectl apply -f $(deploymentContextPath)/ingress.yml
   displayName: 'Application Ingress'
 
 - script: |
     echo "verify ingress controller installation"
     kubectl get pods --namespace=ingress-nginx
-    
-    echo -e "\ninstall application ingress"
-    kubectl apply -f $(deploymentContextPath)/ingress.yml
 
     echo -e "\nverify application ingress"
     kubectl get ingress -o wide
